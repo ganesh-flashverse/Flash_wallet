@@ -1,0 +1,175 @@
+Admin Options
+
+User Management:
+
+Admin Login: A separate interface for administrators to manage exams, users, and results.
+
+
+
+Exam Management:
+
+Create and Manage Exams: Admins can create, edit, and delete exams.
+Set Exam Duration and Scheduled Time: Define when exams will take place.
+
+Question Bank: Add, edit, and categorize questions (MCQs, descriptive, true/false, etc.).
+Random Question Generation: Ensure a different set of questions for each attempt.
+
+
+
+Results Management:
+
+Automatic Grading: For MCQs and other objective questions.
+
+Result Display: Show detailed scores and rankings for students.
+
+Export Results: Ability to export results as PDFs or spreadsheets.
+
+
+
+Feedback System:
+
+Allow students to provide feedback on exams or the portal.
+
+
+
+Security Features:
+
+Prevent Cheating: Implement measures like timer locks and randomized questions.
+
+Proctoring Options: Advanced features like webcam monitoring or screen capture.
+
+
+Admin Dashboard:
+Analytics of Exam Performance: Overview of student performance, number of students, etc.
+
+
+
+
+Student Options
+
+User Management:
+
+Student Registration and Login: Allow students to sign up and log in.
+Password Recovery Options: Help students recover their accounts.
+
+
+2. Exam Interface:
+
+User-Friendly Interface: A simple and intuitive portal for students to take exams.
+
+
+Timer Display: Show the remaining time for the exam.
+
+Ability to Save Answers: Allow students to save their answers and review before submitting.
+
+
+
+Notifications:
+
+Notify Students: Inform students about upcoming exams or updates via email or SMS.
+
+
+
+4. Exam Scheduling:
+
+View Scheduled Exams: Students can see their upcoming exams with specific dates and times.
+
+
+Question Navigation:
+
+Jump Between Questions: Allow students to navigate freely between questions during the exam.
+
+
+
+Results and Feedback:
+
+View Past Results: Let students view their past results and attempts.
+
+Provide Feedback: Students can give feedback on their exam experience.
+
+
+
+Responsive Design:
+
+Ensure the portal works well on mobile and desktop devices.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Admin Components
+
+AdminLoginComponent
+Handles admin authentication.
+Features: Login form, password recovery.
+
+AdminDashboardComponent
+Overview of exam performance and user statistics.
+Features: Analytics display, quick links to manage exams and users.
+
+ExamManagementComponent
+Create, edit, and delete exams.
+Features: Form for exam details (title, duration, schedule), list of existing exams.
+
+QuestionBankComponent
+Manage questions for exams.
+Features: Add/edit questions, categorize questions (MCQs, descriptive, true/false), randomization settings.
+
+ResultsManagementComponent
+View and manage student results.
+Features: Display results, export options (PDF, spreadsheet), detailed score breakdown.
+
+FeedbackManagementComponent
+View and respond to student feedback.
+Features: List of feedback submissions, response options.
+
+SecuritySettingsComponent
+Configure security measures for exams.
+Features: Timer locks, randomization settings, proctoring options.
+
+
+
+
+
+create components for these 
+
+. Student Components
+
+StudentLoginComponent
+Handles student authentication.
+Features: Registration form, login form, password recovery.
+
+StudentDashboardComponent
+Overview of upcoming exams and past results.
+Features: List of scheduled exams, performance analytics.
+
+ExamInterfaceComponent
+User-friendly interface for taking exams.
+Features: Timer display, navigation between questions, save answers functionality.
+
+NotificationComponent
+Manage notifications for students.
+Features: Email/SMS notifications for upcoming exams and updates.
+
+ExamScheduleComponent
+View scheduled exams.
+Features: Calendar view or list of upcoming exams with dates and times.
+
+ResultsComponent
+Display past exam results.
+Features: Detailed scores, rankings, feedback options.
+
+FeedbackComponent
+Allow students to provide feedback on exams or the portal.
+Features: Feedback form, submission confirmation.
