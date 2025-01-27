@@ -14,7 +14,8 @@ import {
     CloudArrowDownIcon,
     MagnifyingGlassIcon,
     TagIcon,
-    AdjustmentsHorizontalIcon
+    AdjustmentsHorizontalIcon,
+    XMarkIcon
 } from '@heroicons/react/24/outline';
 
 const QuestionBank = () => {
@@ -47,6 +48,10 @@ const QuestionBank = () => {
     const [filterCategory, setFilterCategory] = useState('all');
     const [filterDifficulty, setFilterDifficulty] = useState('all');
     const [showQuestionBank, setShowQuestionBank] = useState(false);
+
+    // Add new state for preview and edit mode
+    const [showPreview, setShowPreview] = useState(false);
+    const [editingQuestionIndex, setEditingQuestionIndex] = useState(null);
 
     // Define all handler functions
     const handleExamSetup = (e) => {
@@ -130,6 +135,28 @@ const QuestionBank = () => {
         linkElement.setAttribute('href', dataUri);
         linkElement.setAttribute('download', exportFileDefaultName);
         linkElement.click();
+    };
+
+    // Add handler for editing question
+    const handleEditQuestion = (index) => {
+        setEditingQuestionIndex(index);
+        setCurrentQuestion(questions[index]);
+    };
+
+    // Add handler for updating question
+    const handleUpdateQuestion = (e) => {
+        e.preventDefault();
+        const updatedQuestions = [...questions];
+        updatedQuestions[editingQuestionIndex] = currentQuestion;
+        setQuestions(updatedQuestions);
+        setEditingQuestionIndex(null);
+        setCurrentQuestion({
+            question: '',
+            options: ['', '', '', ''],
+            correctAnswer: '',
+            marks: '',
+            explanation: ''
+        });
     };
 
     // Question Form Component
@@ -337,15 +364,88 @@ const QuestionBank = () => {
         </div>
     );
 
-    // Add the missing renderExamComplete function
+    // Add preview component
+    const renderPreview = () => (
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-semibold text-gray-800">
+                    Exam Preview: {examSetup.examName}
+                </h2>
+                <div className="flex space-x-4">
+                    <button
+                        onClick={() => setShowPreview(false)}
+                        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+                    >
+                        Back to Edit
+                    </button>
+                    <button
+                        onClick={handleCreateExam}
+                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    >
+                        Confirm & Create Exam
+                    </button>
+                </div>
+            </div>
+
+            <div className="space-y-8">
+                {questions.map((question, index) => (
+                    <div key={index} className="border rounded-lg p-6">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="flex-1">
+                                <h3 className="text-lg font-medium text-gray-900">
+                                    Question {index + 1}
+                                </h3>
+                                <p className="mt-2 text-gray-700">{question.question}</p>
+                            </div>
+                            <button
+                                onClick={() => handleEditQuestion(index)}
+                                className="ml-4 text-blue-500 hover:text-blue-700"
+                            >
+                                Edit
+                            </button>
+                        </div>
+
+                        <div className="ml-4 space-y-2">
+                            {question.options.map((option, optIndex) => (
+                                <div 
+                                    key={optIndex}
+                                    className={`p-2 rounded ${
+                                        question.correctAnswer === optIndex.toString()
+                                            ? 'bg-green-50 border border-green-200'
+                                            : 'bg-gray-50'
+                                    }`}
+                                >
+                                    <span className="font-medium mr-2">
+                                        {String.fromCharCode(65 + optIndex)}.
+                                    </span>
+                                    {option}
+                                    {question.correctAnswer === optIndex.toString() && (
+                                        <span className="ml-2 text-green-600 text-sm">
+                                            (Correct Answer)
+                                        </span>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-4 text-sm text-gray-500">
+                            Marks: {question.marks}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+
+    // Modify the renderExamComplete to include preview option
     const renderExamComplete = () => (
         <div className="bg-white rounded-lg shadow-lg p-6 mb-8 text-center">
             <CheckCircleIcon className="h-16 w-16 text-green-500 mx-auto mb-4" />
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                Exam Creation Complete!
+                All Questions Added!
             </h2>
             <p className="text-gray-600 mb-6">
-                You have successfully created all {examSetup.totalQuestions} questions for {examSetup.examName}.
+                You have added all {examSetup.totalQuestions} questions for {examSetup.examName}.
             </p>
             <div className="space-y-4">
                 <p className="text-sm text-gray-500">
@@ -354,12 +454,20 @@ const QuestionBank = () => {
                     Time per Question: {examSetup.timePerQuestion} minutes
                 </p>
             </div>
-            <button
-                onClick={handleCreateExam}
-                className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-            >
-                Create Exam
-            </button>
+            <div className="flex justify-center space-x-4 mt-6">
+                <button
+                    onClick={() => setShowPreview(true)}
+                    className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                >
+                    Preview & Edit Questions
+                </button>
+                <button
+                    onClick={handleCreateExam}
+                    className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                >
+                    Create Exam
+                </button>
+            </div>
         </div>
     );
 
@@ -515,8 +623,131 @@ const QuestionBank = () => {
             ) : (
                 <>
                     {showExamSetup && renderExamSetup()}
-                    {!showExamSetup && !examCreationComplete && renderQuestionForm()}
-                    {examCreationComplete && renderExamComplete()}
+                    {!showExamSetup && !examCreationComplete && !showPreview && renderQuestionForm()}
+                    {examCreationComplete && !showPreview && renderExamComplete()}
+                    {showPreview && renderPreview()}
+                    {editingQuestionIndex !== null && (
+                        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                            <div className="relative top-20 mx-auto p-5 border w-full max-w-4xl shadow-lg rounded-lg bg-white">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h3 className="text-lg font-medium">Edit Question {editingQuestionIndex + 1}</h3>
+                                    <button 
+                                        onClick={() => setEditingQuestionIndex(null)}
+                                        className="text-gray-400 hover:text-gray-500"
+                                    >
+                                        <XMarkIcon className="h-6 w-6" />
+                                    </button>
+                                </div>
+                                <form onSubmit={handleUpdateQuestion} className="space-y-6">
+                                    {/* Question Text */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Question Text
+                                        </label>
+                                        <textarea
+                                            className="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                                            rows="3"
+                                            value={currentQuestion.question}
+                                            onChange={(e) => setCurrentQuestion({
+                                                ...currentQuestion,
+                                                question: e.target.value
+                                            })}
+                                            required
+                                            placeholder="Enter your question here..."
+                                        />
+                                    </div>
+
+                                    {/* Options */}
+                                    <div className="space-y-4">
+                                        <label className="block text-sm font-medium text-gray-700">
+                                            Options
+                                        </label>
+                                        {currentQuestion.options.map((option, index) => (
+                                            <div key={index} className="flex items-center space-x-4">
+                                                <span className="text-sm font-medium text-gray-500 w-8">
+                                                    {String.fromCharCode(65 + index)}.
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    value={option}
+                                                    onChange={(e) => {
+                                                        const newOptions = [...currentQuestion.options];
+                                                        newOptions[index] = e.target.value;
+                                                        setCurrentQuestion({
+                                                            ...currentQuestion,
+                                                            options: newOptions
+                                                        });
+                                                    }}
+                                                    className="flex-1 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                                                    placeholder={`Option ${String.fromCharCode(65 + index)}`}
+                                                    required
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Correct Answer */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Correct Answer
+                                        </label>
+                                        <select
+                                            className="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                                            value={currentQuestion.correctAnswer}
+                                            onChange={(e) => setCurrentQuestion({
+                                                ...currentQuestion,
+                                                correctAnswer: e.target.value
+                                            })}
+                                            required
+                                        >
+                                            <option value="">Select Correct Option</option>
+                                            {currentQuestion.options.map((_, index) => (
+                                                <option key={index} value={index}>
+                                                    Option {String.fromCharCode(65 + index)}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    {/* Marks */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Marks
+                                        </label>
+                                        <input
+                                            type="number"
+                                            className="w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                                            value={currentQuestion.marks}
+                                            onChange={(e) => setCurrentQuestion({
+                                                ...currentQuestion,
+                                                marks: e.target.value
+                                            })}
+                                            required
+                                            min="0"
+                                            placeholder="Enter marks for this question"
+                                        />
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="flex justify-end space-x-4 mt-6">
+                                        <button
+                                            type="button"
+                                            onClick={() => setEditingQuestionIndex(null)}
+                                            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                                        >
+                                            Update Question
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
                 </>
             )}
         </div>
