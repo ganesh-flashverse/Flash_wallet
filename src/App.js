@@ -1,14 +1,15 @@
 import React from "react";
- 
 import './App.css';
+import { Main } from "./crypto/layout/Main";
+import ThirdwebProviderWrapper from "./ThirdwebProviderWrapper";
 
 function App() {
- 
-
   return (
-    <div>
-  <h1>hello</h1>
-    </div>
+    <ThirdwebProviderWrapper>
+      <div className="App">
+        <Main />
+      </div>
+    </ThirdwebProviderWrapper>
   );
 }
 
