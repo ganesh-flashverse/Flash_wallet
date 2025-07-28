@@ -8,9 +8,9 @@ export default function Home() {
   return (
     <>
       <SectionA />
-      <SectionB />
+     {/* <SectionB /> */}
       <SectionC />
-      <SectionD />
+      {/* <SectionD /> */}
       <Roadmap />
       <FlashCards/>
       

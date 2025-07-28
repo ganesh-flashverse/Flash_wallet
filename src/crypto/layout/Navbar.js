@@ -1,17 +1,13 @@
-import React from 'react';
-import { ReactComponent as Logo } from '../../assets/logo.svg';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-
-
- function ShiningIcon() {
+function ShiningIcon() {
   return (
-    <div className="bg-black relative" style={{ width: '100px', height: '100px' , }}>
+    <div className="bg-black relative" style={{ width: '100px', height: '100px' }}>
       <span
         className="icon-border relative"
         style={{
           display: 'inline-block',
-            
           padding: '5px',
           border: '2px solid white',
           borderRadius: '50%',
@@ -19,12 +15,11 @@ import { NavLink } from 'react-router-dom';
           position: 'absolute',
           top: '50%',
           left: '50%',
-          transform: 'translate(-50%, -50%) '
+          transform: 'translate(-50%, -50%)'
         }}
       >
-        <span className="" style={{fontSize:'100px'}}>⚡</span>
+        <span className="" style={{ fontSize: '100px' }}>⚡</span>
       </span>
-
       {/* Lines */}
       <div className="line line-1"></div>
       <div className="line line-2"></div>
@@ -32,7 +27,6 @@ import { NavLink } from 'react-router-dom';
       <div className="line line-4"></div>
       <div className="line line-5"></div>
       <div className="line line-6"></div>
-
       <style jsx>{`
         @keyframes shine {
           0% {
@@ -54,8 +48,7 @@ import { NavLink } from 'react-router-dom';
           height: 2px;
           top: 56.8%;
           left: 43.3%;
-          transform:  rotate(-59deg) translateY(-50%);
-         
+          transform: rotate(-59deg) translateY(-50%);
         }
         .line-2 {
           width: 24px;
@@ -77,7 +70,7 @@ import { NavLink } from 'react-router-dom';
           height: 2px;
           bottom: 46.6%;
           left: 42.4%;
-          transform: rotate(-59deg) translateY(100%)   ;
+          transform: rotate(-59deg) translateY(100%);
           transform-origin: left;
         }
         .line-5 {
@@ -85,20 +78,19 @@ import { NavLink } from 'react-router-dom';
           width: 52px;
           left: 42.2%;
           top: 58.4%;
-          transform: rotate(-90deg)  translateY(-50%);
+          transform: rotate(-90deg) translateY(-50%);
         }
         .line-6 {
           height: 2px;
           width: 50px;
           right: 42.9%;
           top: 44.1%;
-          transform:  rotate(-90deg)  translateY(-50%);
+          transform: rotate(-90deg) translateY(-50%);
         }
       `}</style>
     </div>
   );
 }
-
 
 const navOptions = [
   { name: 'Home', path: '/' },
@@ -109,42 +101,54 @@ const navOptions = [
 ];
 
 export default function Navbar() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
   return (
     <div className="sticky top-0 z-50 w-full flex justify-center px-4 pt-6 pb-2">
       <nav className="w-full max-w-7xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl px-10 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-
-        <div>
-      <span
-        className="icon-border"
-        style={{
-          display: 'inline-block',
-          padding: '5px',
-          border: '2px solid white',
-          borderRadius: '50%',
-          animation: 'shine 2s infinite'
-        }}
-      >
-        <span className="text-white font-bold text-2xl">⚡</span>
-      </span>
-
-      <style jsx>{`
-        @keyframes shine {
-          0% {
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-          }
-          50% {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 1);
-          }
-          100% {
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-          }
-        }
-      `}</style>
-    </div>
-
-
+          <div>
+            <span
+              className="icon-border"
+              style={{
+                display: 'inline-block',
+                padding: '5px',
+                border: '2px solid white',
+                borderRadius: '50%',
+                animation: 'shine 2s infinite'
+              }}
+            >
+              <span className="text-white font-bold text-2xl">⚡</span>
+            </span>
+            <style jsx>{`
+              @keyframes shine {
+                0% {
+                  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                }
+                50% {
+                  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+                }
+                100% {
+                  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                }
+              }
+            `}</style>
+          </div>
           <span className="font-extrabold text-xl tracking-widest text-orange-400 drop-shadow-md">Flash</span>
+        </div>
+        <div className="md:hidden">
+          <button onClick={toggleDrawer} className="text-white focus:outline-none">
+            <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+              <path
+                fillRule="evenodd"
+                d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+              />
+            </svg>
+          </button>
         </div>
         <div className="hidden md:flex items-center space-x-10 text-sm font-medium tracking-wide">
           {navOptions.map(opt => (
@@ -152,8 +156,7 @@ export default function Navbar() {
               key={opt.name}
               to={opt.path}
               className={({ isActive }) =>
-                `hover:text-orange-400 transition duration-300 ${isActive ? 'text-orange-400 font-bold' : ''}`
-              }
+                `hover:text-orange-400 transition duration-300 ${isActive ? 'text-orange-400 font-bold' : ''}`}
               end={opt.path === '/'}
             >
               {opt.name}
@@ -167,6 +170,53 @@ export default function Navbar() {
           </NavLink>
         </div>
       </nav>
+      <div
+        className={`md:hidden fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out ${
+          isDrawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={toggleDrawer}
+      >
+        <div
+          className={`fixed inset-y-0 left-0 w-64 bg-white/5 backdrop-blur-xl border-r border-white/10 shadow-xl p-4 transform transition-transform duration-300 ease-in-out ${
+            isDrawerOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex justify-between items-center mb-6">
+            <span className="font-extrabold text-xl tracking-widest text-orange-400 drop-shadow-md">Flash</span>
+            <button onClick={toggleDrawer} className="text-white focus:outline-none">
+              <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="flex flex-col space-y-4">
+            {navOptions.map(opt => (
+              <NavLink
+                key={opt.name}
+                to={opt.path}
+                className={({ isActive }) =>
+                  `hover:text-orange-400 transition duration-300 ${isActive ? 'text-orange-400 font-bold' : ''}`}
+                end={opt.path === '/'}
+                onClick={toggleDrawer}
+              >
+                {opt.name}
+              </NavLink>
+            ))}
+            <NavLink
+              to="/overviewdashboard"
+              className="px-5 py-2.5 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-md hover:shadow-lg transition duration-300 text-center"
+              onClick={toggleDrawer}
+            >
+              Token Wallet
+            </NavLink>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

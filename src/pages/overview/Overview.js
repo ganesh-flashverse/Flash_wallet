@@ -19,91 +19,96 @@ export default function Referal() {
   return (
     <section className="min-h-screen flex items-center justify-center bg-black w-full text-white rounded-2xl">
       <motion.div
-        className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-y-10 py-10 px-2"
+        className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-y-10 py-6 md:py-10 px-4 md:px-2"
         initial={{ opacity: 0, y: 64 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         {/* Token Balance */}
         <motion.div
-          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col justify-between p-6 transition-all duration-300 cursor-pointer"
-          style={{ width: "450px", height: "250px" }}
+          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col justify-between p-4 md:p-6 transition-all duration-300 cursor-pointer w-full max-w-full md:max-w-[450px] h-auto md:h-[250px] min-h-[200px] md:min-h-[250px]"
           whileHover={{
             scale: 1.04,
             boxShadow: "0 10px 20px rgba(249, 116, 22, 0.42)",
           }}
         >
           <div className="flex items-center gap-2 mb-2">
-            <FaCoins className="text-orange-400" />
-            <span className="text-orange-400 font-semibold cursor-pointer text-lg">
+            <FaCoins className="text-orange-400 text-base md:text-lg" />
+            <span className="text-orange-400 font-semibold cursor-pointer text-base md:text-lg">
               Token Balance
             </span>
-            <FaWallet className="text-zinc-400 ml-auto text-xl" />
+            <FaWallet className="text-zinc-400 ml-auto text-lg md:text-xl" />
           </div>
-          <div className="text-4xl font-black mb-2 text-white">0.00</div>
-          <div className="flex items-center gap-2 text-zinc-400 text-sm">
-            <span>Token Worth</span>
-            <span className="font-semibold">$0.00</span>
-            <span className="mx-2">|</span>
-            <span>Worth at Launch</span>
-            <span className="font-semibold">$0.00</span>
+          <div className="text-2xl md:text-4xl font-black mb-2 text-white">0.00</div>
+          <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2 text-zinc-400 text-xs md:text-sm">
+            <div className="flex items-center gap-2">
+              <span>Token Worth</span>
+              <span className="font-semibold">$0.00</span>
+            </div>
+            <span className="hidden md:inline mx-2">|</span>
+            <div className="flex items-center gap-2">
+              <span>Worth at Launch</span>
+              <span className="font-semibold">$0.00</span>
+            </div>
           </div>
         </motion.div>
         {/* Referral Earnings */}
         <motion.div
-          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col justify-between p-6 transition-all duration-300 cursor-pointer"
-          style={{ width: "450px", height: "250px" }}
+          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col justify-between p-4 md:p-6 transition-all duration-300 cursor-pointer w-full max-w-full md:max-w-[450px] h-auto md:h-[250px] min-h-[200px] md:min-h-[250px]"
           whileHover={{
             scale: 1.04,
             boxShadow: "0 10px 20px rgba(249, 116, 22, 0.42)",
           }}
         >
           <div className="flex items-center gap-2 mb-2">
-            <FaUsers className="text-orange-400" />
-            <span className="text-orange-400 font-semibold cursor-pointer text-lg">
+            <FaUsers className="text-orange-400 text-base md:text-lg" />
+            <span className="text-orange-400 font-semibold cursor-pointer text-base md:text-lg">
               Referral Earnings
             </span>
-            <FaSearchDollar className="text-zinc-400 ml-auto text-xl" />
+            <FaSearchDollar className="text-zinc-400 ml-auto text-lg md:text-xl" />
           </div>
-          <div className="text-4xl font-black mb-2 text-orange-400">0.00</div>
-          <div className="flex items-center gap-2 text-zinc-400 text-sm">
+          <div className="text-2xl md:text-4xl font-black mb-2 text-orange-400">0.00</div>
+          <div className="flex items-center gap-2 text-zinc-400 text-xs md:text-sm">
             <span>Referrals</span>
             <span className="font-semibold">$0.00</span>
           </div>
         </motion.div>
         {/* Buy $UNSD */}
         <motion.div
-          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col gap-2 p-6 transition-all duration-300 cursor-pointer"
-          style={{ width: "450px", height: "250px" }}
+          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col gap-2 p-4 md:p-6 transition-all duration-300 cursor-pointer w-full max-w-full md:max-w-[450px] h-auto md:h-[250px] min-h-[200px] md:min-h-[250px]"
           whileHover={{
             scale: 1.04,
             boxShadow: "0 10px 20px rgba(249, 116, 22, 0.42)",
           }}
         >
           <div className="flex items-center gap-2 mb-2">
-            <FaDollarSign className="text-orange-400" />
-            <span className="text-orange-400 font-semibold cursor-pointer text-lg">
+            <FaDollarSign className="text-orange-400 text-base md:text-lg" />
+            <span className="text-orange-400 font-semibold cursor-pointer text-base md:text-lg">
               BUY $UNSD
             </span>
-            <MdOutlineAttachMoney className="text-zinc-400 ml-auto text-xl" />
+            <MdOutlineAttachMoney className="text-zinc-400 ml-auto text-lg md:text-xl" />
           </div>
-          <div className="flex flex-col gap-1 text-zinc-400 text-sm">
+          <div className="flex flex-col gap-1 text-zinc-400 text-xs md:text-sm">
             <div className="flex items-center gap-2">
-              <span className="text-sm">Total Tokens Sold</span>
-              <span className="font-semibold ml-auto">1,082,690,709</span>
+              <span className="text-xs md:text-sm">Total Tokens Sold</span>
+              <span className="font-semibold ml-auto text-xs md:text-sm">1,082,690,709</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm">Price</span>
-              <span className="font-semibold ml-auto">$0.010743</span>
+              <span className="text-xs md:text-sm">Your Purchased</span>
+              <span className="font-semibold ml-auto text-xs md:text-sm">0</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs md:text-sm">Your Stakeable</span>
+              <span className="font-semibold ml-auto text-xs md:text-sm">0</span>
             </div>
           </div>
-          <div className="mt-2 mb-2">
-            <span className="text-sm text-zinc-400">Amount Raised</span>
-            <div className="font-semibold text-orange-400 text-lg">$8,924,644.61</div>
+          <div className="flex flex-col items-center">
+            <span className="text-xs md:text-sm text-zinc-400">Amount Raised</span>
+            <div className="font-semibold text-orange-400 text-base md:text-lg">$8,924,644.61</div>
           </div>
           <div className="flex justify-center">
             <motion.button
-              className="w-24 mt-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-full py-1 text-sm shadow-lg hover:shadow-[0_10px_20px_rgba(249,115,22,0.6)] transition-all"
+              className="w-20 md:w-24 mt-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-full py-1 text-xs md:text-sm shadow-lg hover:shadow-[0_10px_20px_rgba(249,115,22,0.6)] transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate("buynow")}
@@ -114,25 +119,24 @@ export default function Referal() {
         </motion.div>
         {/* Stage Progress */}
         <motion.div
-          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col p-6 transition-all duration-300 cursor-pointer"
-          style={{ width: "450px", height: "250px" }}
+          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col p-4 md:p-6 transition-all duration-300 cursor-pointer w-full max-w-full md:max-w-[450px] h-auto md:h-[250px] min-h-[200px] md:min-h-[250px]"
           whileHover={{
             scale: 1.04,
             boxShadow: "0 10px 20px rgba(249, 116, 22, 0.42)",
           }}
         >
           <div className="flex items-center gap-2">
-            <FaChartLine className="text-orange-400" />
-            <span className="text-orange-400 font-semibold cursor-pointer text-lg">
+            <FaChartLine className="text-orange-400 text-base md:text-lg" />
+            <span className="text-orange-400 font-semibold cursor-pointer text-base md:text-lg">
               STAGE PROGRESS
             </span>
             <FaChartArea
-              className="text-zinc-400 ml-auto text-xl"
+              className="text-zinc-400 ml-auto text-lg md:text-xl"
               style={{ background: "transparent" }}
             />
           </div>
           <div className="w-full flex items-center justify-center flex-grow">
-            <svg width="100%" height="60" viewBox="0 0 260 60" fill="none">
+            <svg width="100%" height="60" viewBox="0 0 260 60" fill="none" className="h-8 md:h-auto">
               <polyline
                 points="0,55 20,50 40,48 60,35 80,40 100,30 120,37 140,20 160,33 180,18 200,35 220,30 240,36 260,22"
                 stroke="#FF8C43"
@@ -149,37 +153,36 @@ export default function Referal() {
             </svg>
           </div>
           {/* Progress Bar at the bottom */}
-          <div className="w-full rounded-lg p-2 flex items-center gap-2">
-            <span className="text-sm font-bold text-orange-400">Stage</span>
-            <span className="font-bold text-lg text-white">20</span>
-            <div className="flex-1 mx-2 h-4 bg-zinc-800 border border-zinc-700 rounded-2xl overflow-hidden">
+          <div className="w-full rounded-lg p-1 md:p-2 flex items-center gap-1 md:gap-2">
+            <span className="text-xs md:text-sm font-bold text-orange-400">Stage</span>
+            <span className="font-bold text-base md:text-lg text-white">20</span>
+            <div className="flex-1 mx-1 md:mx-2 h-3 md:h-4 bg-zinc-800 border border-zinc-700 rounded-2xl overflow-hidden">
               <div
-                className="h-4 bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl"
+                className="h-3 md:h-4 bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl"
                 style={{ width: "84.93%" }}
               ></div>
             </div>
-            <span className="text-sm font-bold text-orange-400">84.93%</span>
+            <span className="text-xs md:text-sm font-bold text-orange-400">84.93%</span>
           </div>
         </motion.div>
         {/* Calculate This Profit */}
         <motion.div
-          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col gap-2 p-6 transition-all duration-300 cursor-pointer"
-          style={{ width: "450px", height: "250px" }}
+          className="rounded-2xl shadow-lg border border-zinc-700 bg-black/60 flex flex-col gap-2 p-4 md:p-6 transition-all duration-300 cursor-pointer w-full max-w-full md:max-w-[450px] h-auto md:h-[250px] min-h-[200px] md:min-h-[250px]"
           whileHover={{
             scale: 1.04,
             boxShadow: "0 10px 20px rgba(249, 116, 22, 0.42)",
           }}
         >
           <div className="flex items-center gap-2 mb-2">
-            <MdTrendingUp className="text-orange-400" />
-            <span className="text-orange-400 font-semibold cursor-pointer text-lg">
+            <MdTrendingUp className="text-orange-400 text-base md:text-lg" />
+            <span className="text-orange-400 font-semibold cursor-pointer text-base md:text-lg">
               CALCULATE THIS PROFIT
             </span>
-            <FaCalculator className="text-zinc-400 ml-auto text-xl" />
+            <FaCalculator className="text-zinc-400 ml-auto text-lg md:text-xl" />
           </div>
           <div className="flex-1 flex flex-col items-center justify-center">
-            <div className="text-2xl text-zinc-400 mb-2">Coming Soon</div>
-            <div className="text-sm text-zinc-400">
+            <div className="text-xl md:text-2xl text-zinc-400 mb-2">Coming Soon</div>
+            <div className="text-xs md:text-sm text-zinc-400 text-center px-2">
               Estimate your profit based on your token holdings.
             </div>
           </div>

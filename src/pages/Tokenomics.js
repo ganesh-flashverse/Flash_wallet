@@ -41,7 +41,7 @@ const PieChartComponent = () => {
       const chart = window.AmCharts.makeChart(chartDiv.current, {
         type: "pie",
         theme: "light",
-        dataProvider: data.map(item => ({ country: item.name, value: item.value })),
+        dataProvider: data.map(item => ({ country: item.name, value: item.value, labelColor: "#FFFFFF" })),
         valueField: "value",
         titleField: "country",
         colors: data.map(item => item.color),
@@ -57,6 +57,17 @@ const PieChartComponent = () => {
         shadowColor: "#000000",
         shadowBlur: 10,
         balloonText: "[[title]]<br><span style='font-size:14px; color: black'><b>[[value]]</b> ([[percents]]%)</span>",
+        labelsEnabled: true,
+        labelText: "[[title]]",
+        labelColorField: "labelColor",
+        color: "#FFFFFF",
+
+        legend: {
+          enabled: false,
+          color: "#FFFFFF",
+          fontSize: 12
+        },
+
         export: {
           enabled: true
         },
@@ -70,18 +81,36 @@ const PieChartComponent = () => {
   }, []);
 
   return (
-    <div className="mx-auto " style={{ width: '100%', maxWidth: '1000px' }}>
-      <div className="" ref={chartDiv} style={{ width: "100%", height: "500px" }}></div>
+    <div className="mx-auto" style={{ width: '100%', maxWidth: '1000px' }}>
+      <div className="chart-container" ref={chartDiv}></div>
+      <style jsx>{`
+        .chart-container {
+          width: 105%;
+          height: 500px;
+        }
+
+        @media (max-width: 768px) {
+          .chart-container {
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+            display: block;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </div>
   );
 };
 
 const Tokenomics = () => {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-black text-white px-4 py-16 relative overflow-hidden mt-2">
       <style jsx global>{`
         .glass-card {
-          background: rgba(255, 255, 255, 0.36);
+          background: rgba(255, 255, 255, 0.07);
           backdrop-filter: blur(2px);
           border-radius: 15px;
           box-shadow: 0 4px 6px rgba(0, 0, 0, 0);
@@ -98,7 +127,6 @@ const Tokenomics = () => {
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full opacity-20 blur-3xl animate-float"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full opacity-20 blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
         </div>
-
         <div className="container mx-auto px-6 text-center relative z-10">
           <AnimatedCard delay={0}>
             <h1 className="text-6xl font-black mb-6">
@@ -135,11 +163,11 @@ const Tokenomics = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
             {/* AmCharts Pie Chart */}
             <AnimatedCard delay={0.2}>
-              <div className="bg-white/5 backdrop-blur-lg border border-orange-500/30 rounded-lg p-6 glass-card h-full">
+              <div className="backdrop-blur-lg border border-orange-500/30 rounded-lg p-6 glass-card h-full">
                 <div className="text-center mb-6">
                   <h2 className="text-3xl font-bold text-white">Flash Token Distribution</h2>
                 </div>
-                <div className="flex justify-center ">
+                <div className="flex justify-center">
                   <PieChartComponent />
                 </div>
               </div>
@@ -199,7 +227,6 @@ const Tokenomics = () => {
                 <div className="text-2xl font-bold text-orange-400">15% APY</div>
               </div>
             </AnimatedCard>
-
             <AnimatedCard delay={0.4}>
               <div className="bg-white/5 backdrop-blur-lg border border-orange-500/30 rounded-lg p-8 text-center hover:scale-105 transition-transform">
                 <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
@@ -210,7 +237,6 @@ const Tokenomics = () => {
                 <div className="text-2xl font-bold text-orange-400">+20% Bonus</div>
               </div>
             </AnimatedCard>
-
             <AnimatedCard delay={0.5}>
               <div className="bg-white/5 backdrop-blur-lg border border-orange-500/30 rounded-lg p-8 text-center hover:scale-105 transition-transform">
                 <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-green-400 to-green-600 rounded-xl flex items-center justify-center">
