@@ -33,10 +33,16 @@ export default function BuyNow() {
     }));
   };
 
+  const calculateBonusPercentage = () => {
+    const amount = parseFloat(purchaseAmount);
+    const bonusPercentage = Math.min(Math.floor(amount) * 5, 100);
+    return bonusPercentage;
+  };
+
   return (
-    <section className="min-h-screen flex items-center justify-center bg-black w-full text-white">
+    <section className="min-h-screen flex items-center justify-center bg-black w-full text-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.div
-        className="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-10 p-8"
+        className="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-10 py-8 px-0"
         initial={{ opacity: 0, y: 64 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -105,7 +111,7 @@ export default function BuyNow() {
             </button>
           </div>
           {/* Purchase Amount Input */}
-          <div className=" mt-8border border-zinc-700 rounded-lg p-4 flex items-center justify-between mb-2 bg-zinc-900">
+          <div className="border border-zinc-700 rounded-lg p-4 flex items-center justify-between mb-2 bg-zinc-900">
             <span className="text-zinc-400 text-lg">Purchase Amount</span>
             <div className="flex items-center relative group">
               <input
@@ -125,8 +131,24 @@ export default function BuyNow() {
               )}
             </div>
           </div>
+          {/* Token Calculation Block */}
+          <div className="flex flex-col gap-2 mb-2">
+            <div className="border border-zinc-700 rounded-lg p-3 flex flex-col items-center bg-zinc-900">
+              <span className="text-lg text-zinc-400">Total: {amountYouGet} FLASH</span>
+              <div className="w-full mt-2">
+                <span className="block text-lg text-zinc-400 mb-1">Bonus Progress</span>
+                <div className="w-full h-4 bg-zinc-800 border border-zinc-700 rounded-full overflow-hidden">
+                  <div
+                    className="h-4 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full"
+                    style={{ width: `${calculateBonusPercentage()}%` }}
+                  ></div>
+                </div>
+                <span className="block text-lg text-orange-400 mt-1">{calculateBonusPercentage()}% Bonus Power</span>
+              </div>
+            </div>
+          </div>
           {/* Amount You'll Get & USDT Worth */}
-          <div className="flex gap-2 mb-2 mt-8">
+          <div className="flex gap-2 mb-2">
             <div className="flex-1 border border-zinc-700 rounded-lg p-3 flex flex-col items-center bg-zinc-900 relative group">
               <span className="text-lg text-zinc-400">Amount You’ll Get</span>
               <div className="relative w-full">

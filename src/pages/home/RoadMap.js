@@ -181,35 +181,38 @@ const Roadmap = () => {
 
   return (
     <div className="min-h-screen w-full text-white bg-black mt-2">
-      <div className="pt-20 pb-8 px-0 w-full max-w-full mx-auto">
-        <div className="text-center mb-12 animate-fade-in px-4">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent mb-4">
+      <div className="pt-12 md:pt-20 pb-8 px-4 md:px-0 w-full max-w-full mx-auto">
+        <div className="text-center mb-8 md:mb-12 animate-fade-in">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent mb-4">
             Flashverse Roadmap
           </h1>
-          <p className="text-xl text-zinc-400 mb-8">
+          <p className="text-lg md:text-xl text-zinc-400 mb-6 md:mb-8 px-2">
             Our journey to revolutionize the decentralized ecosystem
           </p>
-          <div className="premium-glass-card border border-orange-500/30 max-w-4xl mx-auto premium-glow p-6">
+          <div className="premium-glass-card border border-orange-500/30 max-w-4xl mx-auto premium-glow p-4 md:p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-bold text-lg">Overall Progress</h3>
-              <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent font-bold text-xl">
+              <h3 className="text-white font-bold text-base md:text-lg">Overall Progress</h3>
+              <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent font-bold text-lg md:text-xl">
                 {Math.round(overallProgress)}%
               </span>
             </div>
-            <div className="h-3 bg-gray-800 rounded-full overflow-hidden">
+            <div className="h-2 md:h-3 bg-gray-800 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-orange-400 to-orange-500 transition-all"
                 style={{ width: `${overallProgress}%` }}
               />
             </div>
-            <p className="text-zinc-400 text-sm mt-2">
+            <p className="text-zinc-400 text-xs md:text-sm mt-2">
               Building the future, one milestone at a time ✨
             </p>
           </div>
         </div>
         <div className="relative w-full">
-          <div className="absolute left-1/2 top-0 w-px bg-white transform -translate-x-1/2 line-glow" ref={verticalLineRef}></div>
-          <div className="space-y-8 w-full">
+          {/* Desktop timeline line */}
+          <div className="hidden md:block absolute left-1/2 top-0 w-px bg-white transform -translate-x-1/2 line-glow" ref={verticalLineRef}></div>
+          {/* Mobile timeline line */}
+          <div className="md:hidden absolute left-6 top-0 w-px bg-white line-glow" style={{height: '100%'}}></div>
+          <div className="space-y-6 md:space-y-8 w-full">
             {phases.map((phase, index) => {
               const isActive = activeSet[index];
               const isLeftAligned = index % 2 === 0;
@@ -220,11 +223,12 @@ const Roadmap = () => {
                   ref={(el) => (cardRefs.current[index] = el)}
                   className={`px-4 md:px-20 relative w-full md:w-1/2 transform transition-all duration-700 ease-in-out
                     ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'}
-                    ${isLeftAligned ? 'left-0' : 'left-1/2'}`}
+                    ${isLeftAligned ? 'md:left-0' : 'md:left-1/2'}`}
                   style={{ transitionDelay: `${index * 0.1}s` }}
                 >
+                  {/* Desktop connecting line */}
                   <div
-                    className={`absolute h-px bg-white transform line-glow ${
+                    className={`hidden md:block absolute h-px bg-white transform line-glow ${
                       isLeftAligned ? 'left-1/2' : 'right-1/2'
                     }`}
                     style={{
@@ -233,12 +237,14 @@ const Roadmap = () => {
                       transition: 'width 1.5s ease-in-out',
                     }}
                   ></div>
+                  {/* Mobile timeline dot */}
+                  <div className="md:hidden absolute left-6 top-8 w-3 h-3 bg-white rounded-full transform -translate-x-1/2 z-10"></div>
                   <div
                     className={`premium-glass-card border border-zinc-300 rounded-2xl ${getStatusColor(
                       phase.status
-                    )} transition-all duration-1000 hover:scale-[1.02] premium-glow w-full ${
-                      isLeftAligned ? 'ml-auto' : 'mr-auto'
-                    }`}
+                    )} transition-all duration-1000 hover:scale-[1.02] premium-glow w-full max-w-[250px] md:max-w-none ${
+                      isLeftAligned ? 'md:ml-auto' : 'md:mr-auto'
+                    } ml-12 md:ml-0`}
                     style={{
                       backdropFilter: 'blur(3px) saturate(39%)',
                       WebkitBackdropFilter: 'blur(3px) saturate(39%)',
@@ -246,39 +252,39 @@ const Roadmap = () => {
                       borderRadius: '12px',
                     }}
                   >
-                    <div className="p-6">
-                      <div className="flex flex-col gap-4">
-                        <div className="flex items-center gap-4">
+                    <div className="p-4 md:p-6">
+                      <div className="flex flex-col gap-3 md:gap-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                           <div
-                            className={`p-3 rounded-xl bg-gradient-to-r ${phase.gradient} premium-glow`}
+                            className={`p-2 md:p-3 rounded-xl bg-gradient-to-r ${phase.gradient} premium-glow flex-shrink-0`}
                           >
-                            {phase.icon}
+                            {React.cloneElement(phase.icon, { size: window.innerWidth < 768 ? 24 : 32 })}
                           </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl md:text-2xl text-white font-bold">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg sm:text-xl md:text-2xl text-white font-bold leading-tight">
                               {phase.title}
                             </h3>
-                            <p className="text-zinc-400">
+                            <p className="text-zinc-400 text-sm md:text-base">
                               {phase.period}
                             </p>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-shrink-0">
                             {getStatusIcon(phase.status)}
-                            <span className="text-sm text-zinc-400 capitalize">
+                            <span className="text-xs md:text-sm text-zinc-400 capitalize">
                               {phase.status.replace('-', ' ')}
                             </span>
                           </div>
                         </div>
                         <div>
                           <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm text-zinc-400">
+                            <span className="text-xs md:text-sm text-zinc-400">
                               Phase Progress
                             </span>
-                            <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent font-bold text-sm">
+                            <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent font-bold text-xs md:text-sm">
                               {phase.progress}%
                             </span>
                           </div>
-                          <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+                          <div className="h-1.5 md:h-2 bg-gray-800 rounded-full overflow-hidden">
                             <div
                               className={`h-full bg-gradient-to-r ${phase.gradient} transition-all`}
                               style={{ width: `${phase.progress}%` }}
@@ -287,23 +293,23 @@ const Roadmap = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="p-6">
-                      <div className="space-y-3">
+                    <div className="p-4 md:p-6">
+                      <div className="space-y-2 md:space-y-3">
                         {phase.milestones.map((milestone, idx) => (
                           <div
                             key={idx}
-                            className="flex items-center gap-3 p-3 rounded-lg bg-gray-800 border border-zinc-700 hover:border-orange-500/30 transition-colors"
+                            className="flex items-start gap-3 p-2 md:p-3 rounded-lg bg-gray-800 border border-zinc-700 hover:border-orange-500/30 transition-colors"
                           >
                             {milestone.completed ? (
                               <CheckCircle
-                                className="text-green-400 flex-shrink-0"
-                                size={20}
+                                className="text-green-400 flex-shrink-0 mt-0.5"
+                                size={16}
                               />
                             ) : (
-                              <div className="w-5 h-5 border-2 border-zinc-700 rounded-full flex-shrink-0" />
+                              <div className="w-4 h-4 border-2 border-zinc-700 rounded-full flex-shrink-0 mt-0.5" />
                             )}
                             <span
-                              className={`text-sm ${
+                              className={`text-xs md:text-sm leading-relaxed ${
                                 milestone.completed
                                   ? 'text-green-400'
                                   : 'text-zinc-400'
@@ -315,8 +321,8 @@ const Roadmap = () => {
                         ))}
                       </div>
                       {phase.status === 'in-progress' && (
-                        <div className="mt-4 p-4 bg-gradient-to-r from-orange-400/20 to-orange-500/20 rounded-lg border border-orange-500/30 premium-glow">
-                          <p className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent text-sm font-medium flex items-center gap-2">
+                        <div className="mt-3 md:mt-4 p-3 md:p-4 bg-gradient-to-r from-orange-400/20 to-orange-500/20 rounded-lg border border-orange-500/30 premium-glow">
+                          <p className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent text-xs md:text-sm font-medium flex items-center gap-2">
                             🚀 Currently in development – Stay tuned for updates!
                           </p>
                         </div>
@@ -328,7 +334,7 @@ const Roadmap = () => {
             })}
           </div>
           {showLightningBolt && (
-            <div className="flex justify-center relative bottom-5">
+            <div className="flex justify-center relative bottom-5 hidden md:block">
               <div className="icon-border">
                 <span
                   className="icon-border"
